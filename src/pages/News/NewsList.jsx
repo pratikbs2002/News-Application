@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { useNewsContext } from "../../context/newsContext/NewsContext";
 import { BsGrid3X3GapFill } from "react-icons/bs";
 import { FaListUl } from "react-icons/fa";
+import { BiSolidDownArrow } from "react-icons/bi";
 const NewsList = () => {
   const { news } = useNewsContext();
 
@@ -24,7 +25,9 @@ const NewsList = () => {
       </button>
       {news.map((article) => (
         <div
-          className={`news-item ${isGridView ? "grid-item" : ""}`}
+          className={`news-item ${
+            isGridView ? "grid-item-view" : "list-item-view"
+          }`}
           key={article.title}
           onClick={() => handleArticleClick(article)}
         >
@@ -33,7 +36,8 @@ const NewsList = () => {
             <h2>{article.title}</h2>
             <p>{article.description}</p>
             <a href={article.url} target="_blank" rel="noopener noreferrer">
-              Read more
+              <span>Read more</span>
+              <BiSolidDownArrow />
             </a>
           </div>
         </div>

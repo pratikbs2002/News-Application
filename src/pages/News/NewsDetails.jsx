@@ -4,6 +4,13 @@ import { useNewsContext } from "../../context/newsContext/NewsContext";
 import { useAuth } from "../../context/auth/AuthContext";
 import { getFirestore, doc, setDoc, deleteDoc } from "firebase/firestore";
 import "./NewsDetails.css";
+import {
+  AiFillHeart,
+  AiFillStar,
+  AiOutlineHeart,
+  AiOutlineStar,
+} from "react-icons/ai";
+import { BiSolidDownArrow } from "react-icons/bi";
 const NewsDetails = () => {
   const { articleTitle } = useParams();
   const { news } = useNewsContext();
@@ -46,17 +53,16 @@ const NewsDetails = () => {
       <img src={article.urlToImage} alt={article.title} />
       <h2>{article.title}</h2>
       <p>{article.description}</p>
-      <a href={article.url} target="_blank" rel="noopener noreferrer">
-        Read Full Article
-      </a>
-      <div>
-        {" "}
-        <button
-          className={`favorite-button ${isFavorite ? "favorited" : ""}`}
-          onClick={handleFavoriteToggle}
-        >
-          ❤️ {isFavorite ? "Remove from Favorites" : "Add to Favorites"}
-        </button>
+
+      <div style={{ display: "flex", gap: "10px" }}>
+        <a href={article.url} target="_blank" rel="noopener noreferrer">
+          <span>Read more</span>
+          <BiSolidDownArrow />
+        </a>
+        <div className="favorite-button" onClick={handleFavoriteToggle}>
+          {isFavorite ? <AiFillStar color="yellow" /> : <AiOutlineStar />}
+          <span>Favorite</span>
+        </div>
       </div>
     </div>
   );
