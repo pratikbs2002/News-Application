@@ -23,7 +23,7 @@ const NewsList = () => {
       <button className="toggle-button" onClick={toggleView}>
         {isGridView ? <FaListUl /> : <BsGrid3X3GapFill />}
       </button>
-      {news.map((article) => (
+      {news?.map((article) => (
         <div
           className={`news-item ${
             isGridView ? "grid-item-view" : "list-item-view"
