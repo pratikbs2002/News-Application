@@ -16,16 +16,20 @@ const AuthContext = createContext();
 
 export function AuthProvider({ children }) {
   const [currentUser, setCurrentUser] = useState(null);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   onAuthStateChanged(auth, (user) => {
+    setIsAuthenticated(true);
     setCurrentUser(user);
   });
 
   const value = {
     currentUser,
+    isAuthenticated,
     login: (email, password) =>
       signInWithEmailAndPassword(auth, email, password),
     logout: () => {
+      setIsAuthenticated(false);
       signOut(auth);
     },
     register: (email, password) =>

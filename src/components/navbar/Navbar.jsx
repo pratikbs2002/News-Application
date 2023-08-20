@@ -2,8 +2,9 @@ import React from "react";
 import { Link } from "react-router-dom";
 import "./Navbar.css";
 import { useAuth } from "../../context/auth/AuthContext";
+import { BsBookmarkStar } from "react-icons/bs";
 export default function Navbar() {
-  const { currentUser, logout } = useAuth();
+  const { currentUser, logout, isAuthenticated } = useAuth();
   console.log(currentUser);
   const handleLogout = () => {
     logout();
@@ -15,7 +16,7 @@ export default function Navbar() {
           News App
         </Link>
         <ul className="nav-links">
-          {!currentUser ? (
+          {!isAuthenticated ? (
             <>
               <li>
                 <Link to="/register">Register</Link>
@@ -25,10 +26,24 @@ export default function Navbar() {
               </li>
             </>
           ) : (
-            <li>
-              {" "}
-              <Link onClick={handleLogout}>Logout</Link>
-            </li>
+            <>
+              <li>
+                <Link to="/fav">
+                  <span
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                    }}
+                  >
+                    <BsBookmarkStar color="white" />
+                  </span>
+                </Link>
+              </li>
+              <li>
+                <Link onClick={handleLogout}>Logout</Link>
+              </li>
+            </>
           )}
         </ul>
       </nav>

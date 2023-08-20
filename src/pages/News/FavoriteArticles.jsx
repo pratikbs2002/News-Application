@@ -35,7 +35,7 @@ const FavoriteArticles = () => {
     <div>
       <h2>Favorite Articles</h2>
       {favoriteArticles?.map((article) => (
-        <div key={article.title} className="news-item">
+        <div key={article.title} className="news-item list-item-view">
           <img src={article.urlToImage} alt={article.title} />
           <div className="news-details">
             <h2>{article.title}</h2>

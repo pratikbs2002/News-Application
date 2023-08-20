@@ -1,5 +1,10 @@
 import { useEffect } from "react";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Route,
+  Routes,
+  Navigate,
+} from "react-router-dom";
 import Register from "./pages/Register";
 import Login from "./pages/Login";
 import "./App.css"; // Import your CSS file for styling
@@ -8,9 +13,11 @@ import Home from "./pages/Home";
 import NewsDetails from "./pages/News/NewsDetails";
 import { useNewsContext } from "./context/newsContext/NewsContext";
 import FavoriteArticles from "./pages/News/FavoriteArticles";
+import { useAuth } from "./context/auth/AuthContext";
 
 function App() {
   const { setNews } = useNewsContext();
+  const { isAuthenticated } = useAuth();
 
   useEffect(() => {
     fetch(
@@ -31,8 +38,18 @@ function App() {
         <div className="main-container">
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/register" element={<Register />} />
-            <Route path="/login" element={<Login />} />
+            <Route
+              path="/register"
+              element={
+                isAuthenticated ? <Register /> : <Navigate replace to={"/"} />
+              }
+            />
+            <Route
+              path="/login"
+              element={
+                isAuthenticated ? <Login /> : <Navigate replace to={"/"} />
+              }
+            />
             <Route path="/home" element={<Home />} />
             <Route path="/fav" element={<FavoriteArticles />} />
             <Route path="/news/:articleTitle" element={<NewsDetails />} />
